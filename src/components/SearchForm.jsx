@@ -15,7 +15,7 @@ const SearchForm = ({ onSearch }) => {
     const onSubmit = (event) => {
         event.preventDefault();
 
-        const options = {
+        const options = { //obj
             q: searchStr,
             searchOption
         }
@@ -24,7 +24,7 @@ const SearchForm = ({ onSearch }) => {
     }
     
     return (
-        <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
         <input type="text" value={searchStr} onChange={onSearchInputChange} />{' '} {/*Don't forget to put "value" = two-way data binding*/}
        
        <label>
@@ -37,7 +37,7 @@ const SearchForm = ({ onSearch }) => {
         </label>
 
         <button type="submit">Search</button>
-      </form>
+    </form>
     )
 }
 
