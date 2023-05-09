@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const ShowCard = ({ name, image, summary }) => {
+const ShowCard = ({ name, image, summary, id }) => {
 
     const summaryStripped = summary 
     ? summary.split(' ').slice(0, 10).join(' ').replace(/<.+?>/g, '')
@@ -16,7 +16,7 @@ const ShowCard = ({ name, image, summary }) => {
         <p>{summaryStripped}</p>
 
         <div>
-            <Link to="/">Read more</Link>
+            <Link to={`/show/${id}`}>Read more</Link> {/*The id is part of the url when clicking "Read more". Dinamic pages.*/}
             <button type="button">Star me</button>
         </div>
     </div>
