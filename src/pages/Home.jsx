@@ -17,10 +17,10 @@ const Home = () => {
       let result;
 
       if (searchOption === 'shows'){
-        result = await searchForShows(q); //data coming from api
+        result = await searchForShows(q); //data and method coming from api (tvmaze.js)
         setApiData(result);
       } else {
-        result = await searchForPeople(q); //data coming from api
+        result = await searchForPeople(q); //data and method coming from api (tvmaze.js)
       } 
       setApiData(result);
     } catch (error) {

@@ -20,7 +20,7 @@ const SearchForm = ({ onSearch }) => {
             searchOption
         }
 
-        onSearch(options);
+        onSearch(options); //onSearch é uma função recebida de props
     }
     
     return (

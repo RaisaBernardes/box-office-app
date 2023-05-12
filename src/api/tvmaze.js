@@ -10,7 +10,7 @@ const apiGet = async (queryString) => {
     return body;
 }
 
-export const searchForShows = (query) => apiGet(`/search/shows?q=${query}`)
+export const searchForShows = (query) => apiGet(`/search/shows?q=${query}`) //"query" indica o que foi digitado na barra de pesquisa para completar a url
 
 export const searchForPeople = (query) => apiGet(`/search/people?q=${query}`)
 
