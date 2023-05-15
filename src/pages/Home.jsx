@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query'
 import { searchForShows, searchForPeople } from './../api/tvmaze';
 import SearchForm from '../components/SearchForm';
 import ShowGrid from '../components/shows/ShowGrid';
@@ -6,27 +7,23 @@ import ActorsGrid from '../components/actors/ActorsGrid';
 
 const Home = () => {
 
-  const [apiData, setApiData] = useState(null);
-  const [apiDataError, setApiDataError] = useState(null);
+  const [filter, setFilter] = useState('null');
 
-  const onSearch = async ({ q, searchOption }) => { //these elements were passed by parameters in SearchForm component
-    
-    try { //handling api error
-      setApiDataError(null); //this is to clean up the previous state before every request we send
+  //Here data is fetching when the component mounts (USEQUERY example)
+  //filter changes whenever user clicks the search button and then the filter state is updated (setFilter)
+  const { data: apiData, error: apiDataError } = useQuery({
+      queryKey: ['search', filter], 
+      queryFn: () => 
+      filter.searchOption === 'shows' 
+      ? searchForShows(filter.q) 
+      : searchForPeople(filter.q),
+      enabled: !!filter, //the query will be able only if "filter" is not "null"
+      refetchOnWindowfocus: false, //(check out when is interesting not to use this.)
+  });
 
-      let result;
-
-      if (searchOption === 'shows'){
-        result = await searchForShows(q); //data and method coming from api (tvmaze.js)
-        setApiData(result);
-      } else {
-        result = await searchForPeople(q); //data and method coming from api (tvmaze.js)
-      } 
-      setApiData(result);
-    } catch (error) {
-      setApiDataError(error)
-    }
-  };
+  const onSearch = async ({ q, searchOption }) => { 
+    setFilter({q, searchOption});
+  }
 
   const renderApiData = () => {
     if(apiDataError){ //displaying the error
