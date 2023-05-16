@@ -1,35 +1,16 @@
-import { useEffect, useReducer } from "react";
 import ShowCard from "./ShowCard"
+import { useStarredShows } from "../../lib/useStarredShows";
 
-const usePersistedReducer = (reducer, initialState, localStorageKey) => {
-    const[state, dispatch] = useReducer(reducer, initialState, (initial) => { //initial = initialState that we passed   
-        const persistedValue = localStorage.getItem(localStorage);
 
-        return persistedValue ? JSON.parse(persistedValue) : initial;
-    });
 
-    useEffect(() => {
-        localStorage.setItem(localStorageKey, JSON.stringify(state));
-    }, [state, localStorageKey]);
 
-    return [state, dispatch];
-};
-
-const starredShowsReducer = (currentStarred, action) => {
-    switch(action.type) {
-        case 'STAR': 
-            return currentStarred.concat(action.showId);
-        case 'UNSTAR':
-            return currentStarred.filter(showId => showId !== action.showId) //it'll return a boolean
-        default:
-            return currentStarred;
-    }
-}
 
 const ShowGrid = ({ shows }) => {
 
-    const [starredShows, dispatchStarred] = usePersistedReducer(
-        starredShowsReducer, [], 'Starred Shows:');
+    const [starredShows, dispatchStarred]= useStarredShows();
+
+    // const [starredShows, dispatchStarred] = usePersistedReducer(
+    //     starredShowsReducer, [], 'Starred Shows:');
     
     const onStarMeClick = showId => {
         const isStarred = starredShows.includes(showId);
@@ -51,6 +32,7 @@ const ShowGrid = ({ shows }) => {
                 image={data.show.image ? data.show.image.medium : '/not-found.png'}
                 summary={data.show.summary}
                 onStarMeClick={onStarMeClick}
+                isStarred={starredShows.includes(data.show.id)} /*check if starredShows has data. "includes" method returns a true or false value*/
                 />
             ))}
         </div>
