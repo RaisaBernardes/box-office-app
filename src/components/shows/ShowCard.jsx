@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 
 const ShowCard = ({ name, image, id, summary }) => {
 
@@ -16,7 +15,7 @@ const ShowCard = ({ name, image, id, summary }) => {
         <p>{summaryStripped}</p>
 
         <div>
-            <Link to={`/show/${id}`}>Read more</Link> {/*The id is part of the url when clicking "Read more". Dinamic pages.*/}
+            <a href={`/show/${id}`} target="_blank" rel="noreferrer">Read more</a> {/*The id is part of the url when clicking "Read more". Dinamic pages.*/}
             <button type="button">Star me</button>
         </div>
     </div>
