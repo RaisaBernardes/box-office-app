@@ -7,15 +7,15 @@ const LINKS = [ //Array de objetos
     },
     {
         text: 'Starred',
-        to: '/starred',
+        to: '/starred', //o "to" vai ser a continuação da url
     },
 ];
 
 const Navs = () => {
     return(
-        <div>
+        <div> 
             <ul>
-                {LINKS.map((item) => (
+                {LINKS.map((item) => ( //vai percorrer o array de objetos dentro de "LINKS"
                     <li key={item.to}>
                         <Link to={item.to}>{item.text}</Link>
                     </li>

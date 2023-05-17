@@ -1,19 +1,14 @@
 import ShowCard from "./ShowCard"
 import { useStarredShows } from "../../lib/useStarredShows";
 
-
-
-
-
 const ShowGrid = ({ shows }) => {
-
     const [starredShows, dispatchStarred]= useStarredShows();
 
     // const [starredShows, dispatchStarred] = usePersistedReducer(
     //     starredShowsReducer, [], 'Starred Shows:');
     
     const onStarMeClick = showId => {
-        const isStarred = starredShows.includes(showId);
+        const isStarred = starredShows.includes(showId); //O método includes() determina se um conjunto de caracteres pode ser encontrado dentro de outra string, retornando true ou false
 
         if(isStarred) {
             dispatchStarred({ type: 'UNSTAR', showId });

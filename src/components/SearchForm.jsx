@@ -1,23 +1,23 @@
 import { useState } from 'react';
+import { useSearchStr } from '../lib/useSearchStr'
 
 const SearchForm = ({ onSearch }) => {
-    const [searchStr, setSearchStr] = useState('');
+    const [searchStr, setSearchStr] = useSearchStr('');
     const [searchOption, setSearchOption] = useState('shows');
 
-    const onSearchInputChange = event => {
+    const onSearchInputChange = event => { //coloca o valor de input no estado atual "searchStr"
         setSearchStr(event.target.value);
       };
     
-    const onRadioChange = event => {
+    const onRadioChange = event => { //coloca a opção selecionada no estado atual "searchOption"
         setSearchOption(event.target.value)
       };
 
-    const onSubmit = (event) => {
+    const onSubmit = (event) => { //Botão "pesquisar"
         event.preventDefault();
 
-        const options = { //obj
-            q: searchStr,
-            searchOption
+        const options = { //obj que "resume" o valor digitado no input + opção de radio
+            q: searchStr, searchOption,
         }
 
         onSearch(options); //onSearch é uma função recebida de props

@@ -5,6 +5,10 @@ import SearchForm from '../components/SearchForm';
 import ShowGrid from '../components/shows/ShowGrid';
 import ActorsGrid from '../components/actors/ActorsGrid';
 
+//Resumo:
+//Cria um estado, sincroniza ele com api pra procurar por show ou pessoas.
+//Desenvolve função para receber input do usuário e atualizar o estado atual "filter"
+//Desenvolve função auxiliadora para display na tela com condições
 const Home = () => {
 
   const [filter, setFilter] = useState('null');
@@ -12,19 +16,20 @@ const Home = () => {
   //Here data is fetching when the component mounts (USEQUERY example)
   //filter changes whenever user clicks the search button and then the filter state is updated (setFilter)
   const { data: apiData, error: apiDataError } = useQuery({
-      queryKey: ['search', filter], 
+      queryKey: ['search', filter], //"filter" = current value
       queryFn: () => 
-      filter.searchOption === 'shows' 
+      filter.searchOption === 'shows' //T= Observe if the selected radio option is for search shows or people.
       ? searchForShows(filter.q) 
       : searchForPeople(filter.q),
       enabled: !!filter, //the query will be able only if "filter" is not "null"
       refetchOnWindowfocus: false, //(check out when is interesting not to use this.)
   });
 
-  const onSearch = async ({ q, searchOption }) => { 
-    setFilter({q, searchOption});
+  const onSearch = async ({ q, searchOption }) => {  //q e searchOption são o input do usuário tratados no componente "SearchForm"
+    setFilter({q, searchOption}); //coloca no estado atual "filter" o valor e opção digitado pelo usuário. 
   }
 
+  //Função auxiliadora para fazer o display na tela
   const renderApiData = () => {
     if(apiDataError){ //displaying the error
       return <div>Error occured: {apiDataError.message}</div>

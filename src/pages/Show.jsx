@@ -1,4 +1,3 @@
-//import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router-dom';
 import { getShowById } from '../api/tvmaze';
@@ -7,10 +6,15 @@ import Details from '../components/shows/Details';
 import Seasons from '../components/shows/Seasons';
 import Cast from '../components/shows/Cast';
 
-//using a library called "TanSack / React-query" in order to fetch data safely and practically, without deliting "StrictMode" from index.js
+/*
+RESUMO:
+- Pega o id do show pela url e usa o id para procurar na api as informações daquele show (Para o Read More)
+*/
+
+//using a library called "TanSack / React-query" in order to fetch data safely and practically, without deleting "StrictMode" from index.js
 
 const Show = () => {
-  const { showId } = useParams();
+  const { showId } = useParams(); //useParams acessa parâmetros da url
 
   //The block below is adapted from TanStack
   const { data: showData, error: showError } = useQuery({
@@ -22,7 +26,7 @@ const Show = () => {
   if (showError) {
     return <div>We have an error: {showError.message}</div>;
   }
-  if (showData) {
+  if (showData) { //se achar na api, mostra os dados principais do show segundo informações da api
     return (
       <div>
 

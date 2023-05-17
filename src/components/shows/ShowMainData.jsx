@@ -1,6 +1,6 @@
 const ShowMainData = ({image, name, rating, summary, genres}) => {
     return <div>
-        <img src={image ? image.original : '/not-found.png'} alt={name} />
+        <img src={image ? image.medium : '/not-found.png'} alt={name} />
 
         <div>
             <h1>{name}</h1>

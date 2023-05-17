@@ -1,6 +1,5 @@
 import { useEffect, useReducer } from "react";
 
-
 //Handling sync between state reducer and LocalStorage
 const usePersistedReducer = (reducer, initialState, localStorageKey) => {
     const[state, dispatch] = useReducer(reducer, initialState, initial => { //"initial" params = initialState that we passed   
@@ -8,9 +7,9 @@ const usePersistedReducer = (reducer, initialState, localStorageKey) => {
 
         return persistedValue ? JSON.parse(persistedValue) : initial;
     });
-
+    //useeffect is able to run logic when something changes. Quando o state ou localStorageKey mudar a função é disparada.
     useEffect(() => { //this function syncs the state with localStorage
-        localStorage.setItem(localStorageKey, JSON.stringify(state));
+        localStorage.setItem(localStorageKey, JSON.stringify(state)); //transformando pra string
     }, [state, localStorageKey]);
 
     return [state, dispatch];
